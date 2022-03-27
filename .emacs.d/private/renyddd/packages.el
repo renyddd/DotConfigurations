@@ -41,7 +41,10 @@
 ;;; Code:
 
 (defconst renyddd-packages
-  '()
+  '(
+    (beacon :location elpa)
+    (focus) ;; https://github.com/larstvei/Focus
+    )
   "The list of Lisp packages required by the renyddd layer.
 
 Each entry is either:
@@ -68,3 +71,9 @@ Each entry is either:
 
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
+
+(defun renyddd/init-beacon ()
+  (beacon-mode 1))
+
+(defun renyddd/init-focus ()
+  (focus-mode t))

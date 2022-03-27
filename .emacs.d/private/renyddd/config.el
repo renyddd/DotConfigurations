@@ -23,4 +23,3 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq default-directory "~")
-

@@ -63,6 +63,12 @@ this function should only modify configuration layer settings."
      syntax-checking
      version-control
      treemacs
+     command-log
+     restclient
+
+     (multiple-cursors :variables ;; https://github.com/magnars/multiple-cursors.el
+                       multiple-cursors-backend 'mc
+                       mc/cmds-to-run-once '(upcase-region))
 
      (wakatime :variables
                ;; wakatime-api-key  "your-api-key"
@@ -192,7 +198,7 @@ It should only modify the values of Spacemacs settings."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'emacs
 
    ;; If non-nil show the version string in the Spacemacs buffer. It will
    ;; appear as (spacemacs version)@(emacs version)
@@ -253,6 +259,13 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         zen-and-art
+                         cyberpunk
+                         gruber-darker
+                         phoenix-dark-mono
+                         gotham
+                         subatomic256
+                         adwaita
                          spacemacs-light
                          spacemacs-dark
                          organic-green
@@ -580,6 +593,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
                                     :width normal)
         )
 
+  ;; https://github.com/noctuid/evil-guide#switching-between-evil-and-emacs
+  ;; If you want to use emacs keybindings instead of the ones that evil makes in insert state
+  (setq evil-disable-insert-state-bindings t)
+
   ;; https://develop.spacemacs.org/layers/+source-control/git/README.html#magit-status-fullscreen 
   (setq-default git-magit-status-fullscreen t)
 
@@ -604,7 +621,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; I prefer to log TODO creation also
   (setq org-treat-insert-todo-heading-as-state-change t)
   (setq org-log-into-drawer t)
-  )
+
+)
 
 
 (defun dotspacemacs/user-load ()
@@ -621,10 +639,10 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; https://www.reddit.com/r/spacemacs/comments/4m4mig/navigation_and_editing_in_insert_mode/
-  (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line) ;; was 'evil-paste-last-insertion
-  (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)    ;; was 'evil-copy-from-below
-  (define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
-  (define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
+  ;; (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line) ;; was 'evil-paste-last-insertion
+  ;; (define-key evil-insert-state-map (kbd "C-e") 'end-of-line)    ;; was 'evil-copy-from-below
+  ;; (define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
+  ;; (define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
 
   (setq org-default-notes-file (concat org-directory "~/notes.org"))
   )
@@ -642,8 +660,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
+ '(custom-safe-themes
+   '("d94a55a07623ee474ddb4a0a5dca9a250ea4dcebe554249ce305560c3340ec57" default))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "gray80")
  '(highlight-symbol-colors
@@ -673,7 +695,7 @@ This function is called at the very end of Spacemacs initialization."
      ("dot"
       (:foreground "gray50"))))
  '(package-selected-packages
-   '(blamer git-lens moe-theme restclient dracula-theme gruvbox-theme autothemer yaml-mode protobuf-mode cargo yapfify stickyfunc-enhance sphinx-doc pytest pyenv-mode pydoc py-isort poetry pippel pipenv pyvenv pip-requirements nose lsp-python-ms lsp-pyright live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags counsel swiper ivy company-anaconda blacken anaconda-mode pythonic yasnippet-snippets unfill org-rich-yank org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-contrib org org-cliplink mwim mmm-mode markdown-toc lsp-ui lsp-treemacs lsp-origami origami htmlize helm-org-rifle helm-lsp lsp-mode markdown-mode helm-company helm-c-yasnippet gnuplot git-gutter-fringe fringe-helper git-gutter gh-md geiser-mit geiser fuzzy flycheck-pos-tip pos-tip evil-org company browse-at-remote auto-yasnippet yasnippet ac-ispell auto-complete ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+   '(phoenix-dark-mono-theme gruber-darker-theme lsp-mode protobuf-mode yapfify yaml-mode xterm-color ws-butler winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree toml-mode toc-org spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters racer rust-mode pyvenv pytest pyim xr pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox spinner pangu-spacing orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-popup magit magit-section macrostep lorem-ipsum live-py-mode linum-relative link-hint indent-guide hydra lv hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter git-commit with-editor gh-md geiser project transient xref fuzzy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode company-statistics company-go go-mode company-anaconda company column-enforce-mode clean-aindent-mode cargo markdown-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol ht auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))
  '(pdf-view-midnight-colors '("#655370" . "#fbf8ef")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
