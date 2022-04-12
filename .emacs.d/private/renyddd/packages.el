@@ -44,7 +44,15 @@
   '(
     (beacon :location elpa)
     (focus) ;; https://github.com/larstvei/Focus
+    (shengci :location local
+             ;; Local packages should reside at <layer>/local/<package>/.
+             ;; .emacs.d/private/renyddd/local/shengci
+             ;; TODO:
+             ;; - auto create file
+             ;; - or, use recipe github repo
+             )
     )
+  
   "The list of Lisp packages required by the renyddd layer.
 
 Each entry is either:
@@ -77,3 +85,8 @@ Each entry is either:
 
 (defun renyddd/init-focus ()
   (focus-mode t))
+
+(defun renyddd/init-shengci ()
+  (use-package shengci
+    :load-path "~/tmp/shengci.el/")
+  )
