@@ -82,8 +82,8 @@ this function should only modify configuration layer settings."
      auto-completion
      syntax-checking
      neotree
-
-     chinese
+     (chinese :variables
+              chinese-enable-youdao-dict t)
      (scheme :variables
              scheme-implementations '(mit)
       )
@@ -101,7 +101,8 @@ this function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -668,6 +669,7 @@ This function is called at the very end of Spacemacs initialization."
    '("d94a55a07623ee474ddb4a0a5dca9a250ea4dcebe554249ce305560c3340ec57" default))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "gray80")
+ '(frame-brackground-mode 'dark)
  '(highlight-symbol-colors
    '("#FFF68F" "#B7EB8F" "#76DDBA" "#91D5FF" "#ADC6FF" "#D3ADF7" "#FFADD2" "#FFA39E" "#FFD591"))
  '(hl-todo-keyword-faces
@@ -686,7 +688,7 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
- '(org-agenda-files '("/Users/bytedance/tmp/org_first.org"))
+ '(org-agenda-files '("~/tmp/org_first.org"))
  '(org-fontify-done-headline nil)
  '(org-fontify-todo-headline nil)
  '(org-src-block-faces
@@ -695,8 +697,10 @@ This function is called at the very end of Spacemacs initialization."
      ("dot"
       (:foreground "gray50"))))
  '(package-selected-packages
-   '(phoenix-dark-mono-theme gruber-darker-theme lsp-mode protobuf-mode yapfify yaml-mode xterm-color ws-butler winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree toml-mode toc-org spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters racer rust-mode pyvenv pytest pyim xr pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox spinner pangu-spacing orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-popup magit magit-section macrostep lorem-ipsum live-py-mode linum-relative link-hint indent-guide hydra lv hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter git-commit with-editor gh-md geiser project transient xref fuzzy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode company-statistics company-go go-mode company-anaconda company column-enforce-mode clean-aindent-mode cargo markdown-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol ht auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))
- '(pdf-view-midnight-colors '("#655370" . "#fbf8ef")))
+   '(youdao-dictionary centered-window phoenix-dark-mono-theme gruber-darker-theme lsp-mode protobuf-mode yapfify yaml-mode xterm-color ws-butler winum which-key wakatime-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree toml-mode toc-org spaceline powerline smeargle shell-pop restart-emacs rainbow-delimiters racer rust-mode pyvenv pytest pyim xr pyenv-mode py-isort popwin pip-requirements persp-mode pcre2el paradox spinner pangu-spacing orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-plus-contrib org-mime org-download org-bullets open-junk-file neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-popup magit magit-section macrostep lorem-ipsum live-py-mode linum-relative link-hint indent-guide hydra lv hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile projectile helm-mode-manager helm-make helm-gitignore request helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter git-commit with-editor gh-md geiser project transient xref fuzzy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx find-by-pinyin-dired fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump diminish diff-hl define-word cython-mode company-statistics company-go go-mode company-anaconda company column-enforce-mode clean-aindent-mode cargo markdown-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol ht auto-dictionary auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-pinyin pinyinlib ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))
+ '(pdf-view-midnight-colors '("#655370" . "#fbf8ef"))
+ '(warning-suppress-log-types '((use-package) (use-package)))
+ '(warning-suppress-types '((use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
