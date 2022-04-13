@@ -46,7 +46,7 @@
     (focus) ;; https://github.com/larstvei/Focus
     (shengci :location local
              ;; Local packages should reside at <layer>/local/<package>/.
-             ;; .emacs.d/private/renyddd/local/shengci
+             ;; ~/.emacs.d/private/renyddd/local/shengci
              ;; TODO:
              ;; - auto create file
              ;; - or, use recipe github repo
@@ -88,5 +88,6 @@ Each entry is either:
 
 (defun renyddd/init-shengci ()
   (use-package shengci
-    :load-path "~/tmp/shengci.el/")
+    :load-path "~/.emacs.d/private/renyddd/local/shengci")
   )
+
