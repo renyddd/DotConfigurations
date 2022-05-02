@@ -1,6 +1,7 @@
 (global-font-lock-mode 1)
 
 ;; disable the menu bar and the scroll bar
+;; TODO ignore for terminal
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
