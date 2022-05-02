@@ -53,20 +53,37 @@
   ("C-c [" . flymake-goto-prev-error)
   ("C-c ]" . flymake-goto-next-error))
 
+;; company
+(leaf company
+  :straight t
+  :hook
+  ((text-mode-hook prog-mode-hook) . company-mode)
+  )
+
 ;; a client for LSP, https://github.com/joaotavora/eglot
 (leaf eglot
-  :after flymake exec-path-from-shell-copy-env
+  :after flymake
   :straight t
   :require t
-  :hook
-  ((rust-mode-hook tuareg-mode-hook
-    haskell-literate-mode-hook haskell-mode-hook
-    c-mode-hook c++-mode-hook go-mode-hook) . eglot-ensure)
+  :hook((rust-mode-hook tuareg-mode-hook
+			haskell-literate-mode-hook haskell-mode-hook
+			c-mode-hook c++-mode-hook go-mode-hook) . eglot-ensure)
   :bind
   ("C-c =" . eglot-format)
   ("C-c -" . eglot-rename)
   ("C-c 0" . eglot-code-actions)
-  ("C-c h" . egdoc))
+  ("C-c h" . egdoc)
+  :config
+  (setq tab-width 4)
+  (setq indent-tabs-mode 1)
+  (defun eglot-format-buffer-on-save ()
+    (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+  (add-hook 'go-mode-hook #'eglot-format-buffer-on-save)
+  (setq-default eglot-workspace-configuration
+		'((:gopls .
+			  ((staticcheck . t)
+			   (matcher . "CaseSensitive"))))))
+
 
 (leaf go-mode ;; TODO: try to move this into eglog config part
     :straight t
@@ -94,6 +111,16 @@
   :hook
   (after-init-hook . global-tree-sitter-mode)
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
+
+;; project
+(leaf project
+  :config
+  (defun project-find-go-module (dir)
+    (when-let ((root (locate-dominating-file dir "go.mod")))
+      (cons 'go-module root)))
+  (cl-defmethod project-root ((project (head go-module)))
+    (cdr project))
+  (add-hook 'project-find-functions #'project-find-go-module))
 
 ;; projectile, https://github.com/bbatsov/projectile
 (leaf projectile
