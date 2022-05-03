@@ -105,9 +105,6 @@
   :hook
   ((go-mode-hook) . lsp))
 
-;; dap-mode
-(leaf q)
-
 (leaf go-mode ;; TODO: try to move this into eglog config part
   :straight t
   :config
