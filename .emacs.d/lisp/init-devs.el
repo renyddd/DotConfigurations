@@ -43,15 +43,22 @@
   :config
   (require 'smartparens-config))
 
-(leaf flymake
-  :require t
-  :straight nil
-  :hook
-  ((text-mode-hook prog-mode-hook) . flymake-mode)
-  :bind
-  ("C-c f" . flymake-show-buffer-diagnostics)
-  ("C-c [" . flymake-goto-prev-error)
-  ("C-c ]" . flymake-goto-next-error))
+;; flycheck instead
+;; (leaf flymake
+;;   :require t
+;;   :straight nil
+;;   :hook
+;;   ((text-mode-hook prog-mode-hook) . flymake-mode)
+;;   :bind
+;;   ("C-c f" . flymake-show-buffer-diagnostics)
+;;   ("C-c [" . flymake-goto-prev-error)
+;;   ("C-c ]" . flymake-goto-next-error))
+
+;; flycheck prefix with `C-c !`
+;; https://www.flycheck.org/en/latest/user/quickstart.html
+(leaf flycheck
+  :straight t
+  :config (global-flycheck-mode))
 
 ;; company
 (leaf company
@@ -60,36 +67,61 @@
   ((text-mode-hook prog-mode-hook) . company-mode)
   )
 
-;; a client for LSP, https://github.com/joaotavora/eglot
-(leaf eglot
-  :after flymake
-  :straight t
-  :require t
-  :hook((rust-mode-hook tuareg-mode-hook
-			haskell-literate-mode-hook haskell-mode-hook
-			c-mode-hook c++-mode-hook go-mode-hook) . eglot-ensure)
-  :bind
-  ("C-c =" . eglot-format)
-  ("C-c -" . eglot-rename)
-  ("C-c 0" . eglot-code-actions)
-  ("C-c h" . egdoc)
-  :config
-  (setq tab-width 4)
-  (setq indent-tabs-mode 1)
-  (defun eglot-format-buffer-on-save ()
-    (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
-  (add-hook 'go-mode-hook #'eglot-format-buffer-on-save)
-  (setq-default eglot-workspace-configuration
-		'((:gopls .
-			  ((staticcheck . t)
-			   (matcher . "CaseSensitive"))))))
+(setq-default tab-width 4
+			  indent-tabs-mode 1)
 
+;; a client for LSP, https://github.com/joaotavora/eglot
+;; (leaf eglot
+;;   :after flymake
+;;   :straight t
+;;   :require t
+;;   :hook((rust-mode-hook tuareg-mode-hook
+;; 			haskell-literate-mode-hook haskell-mode-hook
+;; 			c-mode-hook c++-mode-hook go-mode-hook) . eglot-ensure)
+;;   :bind
+;;   ("C-c =" . eglot-format)
+;;   ("C-c -" . eglot-rename)
+;;   ("C-c 0" . eglot-code-actions)
+;;   ("C-c h" . egdoc)
+;;   :config
+;;   (defun eglot-format-buffer-on-save ()
+;;     (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+;;   (add-hook 'go-mode-hook #'eglot-format-buffer-on-save)
+;;   (setq-default eglot-workspace-configuration
+;; 		'((:gopls .
+;; 			  ((staticcheck . t)
+;; 			   (matcher . "CaseSensitive"))))))
+
+;;; Program
+;; lsp-ui contains highlevel UI modules of lsp-mode works out
+;; of box
+(leaf lsp-ui
+  :straight t)
+
+;; lsp-mode, https://github.com/emacs-lsp/lsp-mode
+(setq lsp-keymap-prefix "C-c l")
+(leaf lsp-mode
+  :straight t
+  :hook
+  ((go-mode-hook) . lsp))
+
+;; dap-mode
+(leaf q)
 
 (leaf go-mode ;; TODO: try to move this into eglog config part
-    :straight t
-    :config
-    (autoload 'go-mode "go-mode" nil t)
-    (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode)))
+  :straight t
+  :config
+  (autoload 'go-mode "go-mode" nil t)
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+  (defun my-go-mode-hook ()
+	;; use goimports instead of go-fmt
+	(setq gofmt-command "goimports")
+	;; call Gofmt before saving
+	(add-hook 'before-save-hook 'gofmt-before-save)
+	;; guru too slow, and failed to set its scope
+	;; (go-guru-hl-identifier-mode) ;; C-c C-o go-guru-map
+	)
+  (add-hook 'go-mode-hook #'my-go-mode-hook))
 
 ;; minor mod, information for Lisp objects at point
 (leaf eldoc
@@ -112,6 +144,7 @@
   (after-init-hook . global-tree-sitter-mode)
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 
+;;; Project
 ;; project
 (leaf project
   :config
@@ -130,6 +163,19 @@
   :config
   (projectile-mode +1)
   )
+
+;; treemacs, https://github.com/Alexander-Miller/treemacs#installation
+(leaf treemacs
+  :straight t
+  :bind
+  ("M-0" . treemacs-select-window)
+  ("C-c t 1"   . treemacs-delete-other-windows)
+  ("C-c t t"   . treemacs)
+  ("C-c t d"   . treemacs-select-directory)
+  ("C-c t B"   . treemacs-bookmark)
+  ("C-c t C-t" . treemacs-find-file)
+  ("C-c t M-t" . treemacs-find-tag)
+)
 
 (provide 'init-devs)
 ;;; init-devs.el ends here
