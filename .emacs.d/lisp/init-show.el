@@ -138,5 +138,15 @@
    ("C-h k" . helpful-key)
    ("C-h p" . helpful-at-point)))
 
+;; helm, https://github.com/emacs-helm/helm/wiki#helm-completion-vs-emacs-completion
+;; helm completion is based on the completion window, `C-h m` display help
+;; without qiting helm session.
+;; `C-x c` default help-command-prefix
+
+(leaf helm
+  :straight t
+  :bind
+  ("M-x" . helm-M-x))
+
 (provide 'init-show)
 ;;; init-show.el ends here
