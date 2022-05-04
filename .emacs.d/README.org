@@ -1,0 +1,10 @@
+#+title:  README
+#+author: renyddd
+#+date: <2022-05-04 Wed>
+* Overview
+** Emacs configurations
+#+attr_org: :width 600px
+[[http://pic.renyddd.top/Snipaste_2022-05-04_18-13-03.png]]
+
+
+

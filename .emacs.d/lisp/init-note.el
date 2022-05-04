@@ -16,9 +16,11 @@
   ;; I prefer to log TODO creation also
   (setq org-treat-insert-todo-heading-as-state-change t)
   (setq org-log-into-drawer t)
-
+  ;; some directories
   (setq org-directory "~/org")
   (setq org-default-notes-file (concat org-directory "~/notes.org"))
+  ;;
+  (setq org-display-remote-inline-images 'download)
   )
 
 (leaf org-roam
