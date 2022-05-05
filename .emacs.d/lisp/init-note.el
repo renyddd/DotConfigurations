@@ -43,9 +43,38 @@
   (org-roam-db-autosync-mode)
   )
 
+;;; TODO
+;; org-hugodrive blog
 
+;;; Dictionary
+;;; https://www.reddit.com/r/emacs/comments/3yjzmu/dictionary_and_thesaurus_in_emacs/
+;; youdao
+(leaf youdao-dictionary
+  :straight t
+  :bind
+  ("C-c d y" . youdao-dictionary-search-at-point))
 
+;; called osx dictionary
+(leaf osx-dictionary
+  :straight t
+  :bind
+  ("C-c d o" . osx-dictionary-search-word-at-point))
 
+;; define-word from https://oremacs.com/2015/05/22/define-word/
+(leaf define-word
+  :straight t
+  :bind
+  ("C-c d d" . define-word-at-point))
+
+;; ;; shengci capture
+;; (leaf shengci
+;;   :straight '(shengci
+;; 			  :type git
+;; 			  :host github
+;; 			  :repo "EvanMeek/shengci")
+;;   :bind
+;;   ("C-c d c" . shengci-capture-word-and-save)
+;;   ("C-c d l" . shengci-show-recorded-word))
 
 (provide 'init-note)
 ;;; init-note.el ends here
