@@ -4,13 +4,6 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
-set-option -g mouse on
-
-# -- unset C-a  ----------------------------------------------------------------
-set -g prefix2 C-b
-unbind-key C-a
-
-
 # -- navigation ----------------------------------------------------------------
 
 # if you're running tmux within iTerm2
@@ -18,7 +11,7 @@ unbind-key C-a
 #   - and iTerm2 is configured to let option key act as +Esc
 #   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
 # then uncomment the following line to make Meta + arrow keys mapping work
-#set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
+set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
 
 
 # -- windows & pane creation ---------------------------------------------------
@@ -233,7 +226,8 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left=" ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}, %R , %d %b | #(curl -m 3 http://wttr.in/Beijing\?format\=3 2>/dev/null | tr -d 'Beijing:'; sleep 900) | #{username}#{root} | #{hostname} "
+# weather display
+#tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}, %R , %d %b | #(curl -m 3 http://wttr.in/Beijing\?format\=3 2>/dev/null | tr -d 'Beijing:'; sleep 900) | #{username}#{root} | #{hostname} "
 # tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 # status left style
@@ -337,23 +331,54 @@ tmux_conf_copy_to_os_clipboard=false
 #set -g history-limit 10000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
 #set -g status-keys vi
 #set -g mode-keys vi
+## Use vi or emacs-style key bindings in copy mode.
+## The default is emacs, unless VISUAL or EDITOR contains ‘vi’.
 
-# replace C-b by C-a instead of using both prefixes
-# set -gu prefix2
-# unbind C-a
-# unbind C-b
-# set -g prefix C-a
-# bind C-a send-prefix
+### adapt tmux with emacs keybindings
+### https://unix.stackexchange.com/questions/99304/split-tmux-windows-with-same-keys-as-in-emacs
+### https://gist.github.com/spicycode/1229612
+## replace C-b by C-x instead of using both prefixes
+set -gu prefix2
+unbind C-a
+unbind C-b
+set -g prefix C-x
+bind C-x send-prefix
 
-# move status line to top
-#set -g status-position top
+## split panes using 3 and 2
+bind 3 split-window -h
+bind 2 split-window -v
+unbind '"'
+unbind %
 
+## select panes like windmove.el
+bind -n S-Up select-pane -U		# -n specify no need prefix key
+bind -n S-Down select-pane -D
+bind -n S-Left select-pane -L
+bind -n S-Right select-pane -R
+
+## Use C-x 0 to close panel, similar than emacs when closing the splitted window
+unbind 0
+bind 0 kill-pane
+
+## Enable switch session similar than emacs selecting buffer
+unbind s
+bind b choose-tree -w
+unbind C-h
+unbind C-l
+bind -r Right next-window
+bind -r Left previous-window
+
+## Kill window, similar than emacs kill buffer
+bind k confirm kill-window
+
+## Source the conf file
+bind r source-file ~/.tmux.conf.local
 
 # -- tpm -----------------------------------------------------------------------
 
