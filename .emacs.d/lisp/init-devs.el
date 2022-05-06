@@ -172,7 +172,18 @@
   ("C-c t B"   . treemacs-bookmark)
   ("C-c t C-t" . treemacs-find-file)
   ("C-c t M-t" . treemacs-find-tag)
-)
+  )
+
+;; json major mode, https://github.com/joshwnj/json-mode
+(leaf json-mode
+  :straight t
+  )
+
+;; yaml major mode, https://github.com/yoshiki/yaml-mode
+(leaf yaml-mode
+  :straight t
+  :config
+  )
 
 (provide 'init-devs)
 ;;; init-devs.el ends here

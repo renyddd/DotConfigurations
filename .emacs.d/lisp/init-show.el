@@ -40,6 +40,24 @@
   :config
   (setq-default goggles-pulse t)) ;; set to nil to disable pulsing
 
+;; https://github.com/antonj/Highlight-Indentation-for-Emacs
+(leaf highlight-indentation
+  :straight t
+  :bind
+  ("C-c C-i" . highlight-indentation-aj-toggle-fold)
+  :config
+  (highlight-indentation-mode)
+  (defun highlight-indentation-aj-toggle-fold ()
+	"Toggle fold all lines larger than indentation on current line,
+from https://blog.chmouel.com/2016/09/07/dealing-with-yaml-in-emacs/"
+	(interactive)
+	(let ((col 1))
+      (save-excursion
+		(back-to-indentation)
+		(setq col (+ 1 (current-column)))
+		(set-selective-display
+		 (if selective-display nil (or col 1)))))))
+
 ;; never lose your cursor, https://github.com/Malabarba/beacon
 (leaf beacon
   :straight t
