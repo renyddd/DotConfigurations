@@ -5,6 +5,12 @@
 ;;; Code:
 (require 'init-const)
 
+(straight-use-package '(tomelr
+			:type git :host github :repo "kaushalmodi/tomelr"
+			))
+
+(straight-use-package 'ox-hugo)
+
 (leaf org
   :straight t
   :config
@@ -21,6 +27,12 @@
   (setq org-default-notes-file (concat org-directory "~/notes.org"))
   ;;
   (setq org-display-remote-inline-images 'download)
+
+  ;; settings for ox-hugo
+  (with-eval-after-load 'ox
+	(require 'ox-hugo))
+  (setq org-hugo-base-dir "~/git_repositories/renyddd.github.io/"
+		org-hugo-default-section-directory "posts")
   )
 
 (leaf org-roam
@@ -43,8 +55,19 @@
   (org-roam-db-autosync-mode)
   )
 
-;;; TODO
-;; org-hugodrive blog
+;; easy-hugo just a posts manager and reviewer, `easy-hugo` to get menu
+;; could not convert org files.
+;; https://github.com/masasam/emacs-easy-hugo#installation
+(leaf easy-hugo
+  :straight t
+  :config
+  (setq easy-hugo-basedir "~/git_repositories/renyddd.github.io/")
+  (setq easy-hugo-url "https://blog.renyddd.top/")
+  (setq easy-hugo-root "~/git_repositories/renyddd.github.io/") ;; what's the difference
+  (setq easy-hugo-previewtime "300")
+  (setq easy-hugo-postdir "content/posts")
+  (easy-hugo-enable-menu)
+  )
 
 ;;; Dictionary
 ;;; https://www.reddit.com/r/emacs/comments/3yjzmu/dictionary_and_thesaurus_in_emacs/
