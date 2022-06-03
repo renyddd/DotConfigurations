@@ -35,6 +35,16 @@
   (when (executable-find "sqlite")
     (leaf forge :straight t)))
 
+;; blamer, https://github.com/Artawower/blamer.el
+(leaf blamer
+  :straight t
+  :custom
+  (blamer-idle-time 0.3)
+  (blamer-min-offset 70)
+  :config
+  ;;  (global-blamer-mode 1)
+  )
+
 ;; https://github.com/Fuco1/smartparens
 ;; M-x sp-cheat-sheet, will show you all commands available
 (leaf smartparens
@@ -103,7 +113,15 @@
 (leaf lsp-mode
   :straight t
   :hook
-  ((go-mode-hook) . lsp))
+  ((go-mode-hook c-mode-hook c++-mode-hook) . lsp)
+  :config
+  (lsp-register-client ; https://emacs-lsp.github.io/lsp-mode/page/remote/
+    (make-lsp-client :new-connection (lsp-tramp-connection "clang-14")
+                     :major-modes '(c-mode)
+                     :remote? t
+                     :server-id 'clang-14-remote))
+   ; clang: error: no input filesr
+  )
 
 (leaf go-mode ;; TODO: try to move this into eglog config part
   :straight t
@@ -136,10 +154,17 @@
 (leaf tree-sitter
   :straight t
   :config
-  (leaf tree-sitter-langs)
   :hook
   (after-init-hook . global-tree-sitter-mode)
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
+
+;; tree-sitter-langs populate tree-sitter-major-mode-language-alist 
+(leaf tree-sitter-langs
+  :straight t)
+
+;; tree-site-cores
+(leaf tsc
+  :straight t)
 
 ;;; Project
 ;; project

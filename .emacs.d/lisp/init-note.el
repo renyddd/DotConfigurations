@@ -15,24 +15,31 @@
   :straight t
   :config
   ;; https://orgmode.org/manual/Workflow-states.html#Workflow-states
-  (setq org-todo-keywords
-	'((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
-          ))
-  ;; https://cpbotha.net/2019/11/02/forming-and-maintaining-habits-using-orgmode/
-  ;; I prefer to log TODO creation also
-  (setq org-treat-insert-todo-heading-as-state-change t)
-  (setq org-log-into-drawer t)
-  ;; some directories
-  (setq org-directory "~/org")
-  (setq org-default-notes-file (concat org-directory "~/notes.org"))
-  ;;
-  (setq org-display-remote-inline-images 'download)
+  (progn
+	;; variables
 
-  ;; settings for ox-hugo
-  (with-eval-after-load 'ox
-	(require 'ox-hugo))
-  (setq org-hugo-base-dir "~/git_repositories/renyddd.github.io/"
-		org-hugo-default-section-directory "posts")
+	(setq org-todo-keywords
+		  '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
+			))
+	;; https://cpbotha.net/2019/11/02/forming-and-maintaining-habits-using-orgmode/
+	;; (add-to-list 'org-modules 'org-habit t)
+	;; FIXME Error msg: Symbol’s value as variable is void: org-modules Disable showing Disable logging
+
+
+	(setq org-treat-insert-todo-heading-as-state-change t)
+	(setq org-log-into-drawer t)
+	(setq org-display-remote-inline-images 'download)
+  
+	;; some directories
+	(setq org-directory "~/org")
+	(setq org-default-notes-file (concat org-directory "~/notes.org"))
+  
+	;; settings for ox-hugo
+	(with-eval-after-load 'ox
+	  (require 'ox-hugo))
+	(setq org-hugo-base-dir "~/git_repositories/renyddd.github.io/"
+		  org-hugo-default-section-directory "posts")
+	)
   )
 
 (leaf org-roam
