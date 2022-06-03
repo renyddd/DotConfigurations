@@ -38,9 +38,6 @@
 ;; blamer, https://github.com/Artawower/blamer.el
 (leaf blamer
   :straight t
-  :custom
-  (blamer-idle-time 0.3)
-  (blamer-min-offset 70)
   :config
   ;;  (global-blamer-mode 1)
   )
