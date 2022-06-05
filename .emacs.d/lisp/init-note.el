@@ -13,26 +13,56 @@
 
 (leaf org
   :straight t
+  :bind (("C-c a" . org-agenda)
+		 )
   :config
   ;; https://orgmode.org/manual/Workflow-states.html#Workflow-states
   (progn
 	;; variables
+	;; https://cpbotha.net/2019/11/02/forming-and-maintaining-habits-using-orgmode/
+	(with-eval-after-load 'org
+	  (add-to-list 'org-modules 'org-habit t))
+
 
 	(setq org-todo-keywords
-		  '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")
-			))
-	;; https://cpbotha.net/2019/11/02/forming-and-maintaining-habits-using-orgmode/
-	;; (add-to-list 'org-modules 'org-habit t)
-	;; FIXME Error msg: Symbol’s value as variable is void: org-modules Disable showing Disable logging
+		  ;; '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
 
+          '(
+			(sequence ; https://www.gtrun.org/custom/my-agenda.html#orge94abfc
+			 "☞ TODO(t!)"	; A task that needs doing & is ready to do
+			 "PROJ(p!)" ; An ongoing project that cannot be completed in one step
+			 "⚔ INPROCESS(s!)"			; A task that is in progress
+			 "⚑ WAITING(w!)" ; Something is holding up this task; or it is paused
+			 "|"
+			 "☟ NEXT(n!)"
+			 "✰ Important(i!)" 
+			 "✔ DONE(d!)"				; Task successfully completed
+			 "✘ CANCELED(c@)") ; Task was cancelled, aborted or is no longer applicable
+			(sequence
+			 "✍ NOTE(N!)"
+			 "FIXME(f!)"
+			 "☕ BREAK(b!)"
+			 "❤ Love(l!)"
+			 "REVIEW(r!)"
+			 )
+			)							; Task was completed
+		  )
+	
 
-	(setq org-treat-insert-todo-heading-as-state-change t)
-	(setq org-log-into-drawer t)
-	(setq org-display-remote-inline-images 'download)
+	(setq org-log-done 'time
+		  org-closed-keep-when-no-todo t
+     	  org-log-into-drawer t
+		  org-treat-insert-todo-heading-as-state-change t
+		  org-display-remote-inline-images 'download
+		  )
   
 	;; some directories
-	(setq org-directory "~/org")
-	(setq org-default-notes-file (concat org-directory "~/notes.org"))
+	(setq org-directory "~/org"
+		  org-agenda-files (list "~/work/NOTEs.org"
+								 "~/work/named_by_week/"
+								 "~/tmp/org_first.org")
+		  org-default-notes-file (concat org-directory "~/notes.org")
+		  )
   
 	;; settings for ox-hugo
 	(with-eval-after-load 'ox
