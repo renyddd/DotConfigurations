@@ -303,10 +303,10 @@ tmux_conf_battery_vbar_palette="gradient"
 #tmux_conf_battery_vbar_palette="#d70000,#ff5f00,#5fff00"  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-tmux_conf_battery_status_charging="↑"       # U+2191
-tmux_conf_battery_status_discharging="↓"    # U+2193
-#tmux_conf_battery_status_charging="🔌"     # U+1F50C
-#tmux_conf_battery_status_discharging="🔋"  # U+1F50B
+#tmux_conf_battery_status_charging="↑"       # U+2191
+#tmux_conf_battery_status_discharging="↓"    # U+2193
+tmux_conf_battery_status_charging="🔌"     # U+1F50C
+tmux_conf_battery_status_discharging="🔋"  # U+1F50B
 
 # clock style (when you hit <prefix> + t)
 # you may want to use %I:%M %p in place of %R in tmux_conf_theme_status_right
@@ -448,3 +448,41 @@ tmux_conf_uninstall_plugins_on_reload=true
 #
 # "$@"
 # # /!\ do not remove the previous line
+
+
+# List of plugins
+# Press prefix + I (capital i, as in Install) to fetch the plugin.
+set-environment -g PATH "/usr/local/bin:/bin:/usr/bin"
+
+set -g @plugin 'tmux-plugins/tpm'
+
+## 
+## set -g @plugin 'tmux-plugins/tmux-sensible'
+### tmux messages are displayed for 4 seconds
+## set -g display-time 4000
+
+
+## bar
+set -g @plugin 'thewtex/tmux-mem-cpu-load'
+# set -g status-right "#[fg=green]#($TMUX_PLUGIN_MANAGER_PATH/tmux-mem-cpu-load/tmux-mem-cpu-load --colors --powerline-right --interval 2)#[default]"
+
+## helpful menus
+set -g @plugin 'jaclu/tmux-menus'
+set -g @menus_trigger 'h'
+
+## color different session
+set -g @plugin 'imomaliev/tmux-peacock'
+
+## quickly select, copy/insert/complete text
+set -g @plugin 'laktak/extrakto'
+set -g @extrakto_popup_size 35%
+
+
+# Other examples:
+# set -g @plugin 'github_username/plugin_name'
+# set -g @plugin 'github_username/plugin_name#branch'
+# set -g @plugin 'git@github.com:user/plugin'
+# set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
