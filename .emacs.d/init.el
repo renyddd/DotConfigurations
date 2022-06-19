@@ -60,6 +60,7 @@
 (require 'init-devs)
 (require 'init-lang)
 
+(require 'init-utils)
 
 
 ;;; init.el ends here
