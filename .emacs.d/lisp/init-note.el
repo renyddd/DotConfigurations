@@ -90,6 +90,8 @@
                (window-width . 0.33)
                (window-height . fit-window-to-buffer)))
   (org-roam-db-autosync-mode)
+
+  (setq org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
   )
 
 ;; easy-hugo just a posts manager and reviewer, `easy-hugo` to get menu
