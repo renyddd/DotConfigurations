@@ -72,6 +72,7 @@
 	)
   )
 
+;; org-roam
 (leaf org-roam
   :straight t
   :bind (("C-c n l" . org-roam-buffer-toggle)
@@ -84,15 +85,28 @@
   :config
   (setq org-roam-directory (file-truename "~/org-roam/"))
   (add-to-list 'display-buffer-alist
-             '("\\*org-roam\\*"
-               (display-buffer-in-direction)
-               (direction . right)
-               (window-width . 0.33)
-               (window-height . fit-window-to-buffer)))
+               '("\\*org-roam\\*"
+				 (display-buffer-in-direction)
+				 (direction . right)
+				 (window-width . 0.33)
+				 (window-height . fit-window-to-buffer)))
   (org-roam-db-autosync-mode)
 
   (setq org-roam-graph-viewer "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+
+  ;; org-roam-ui
+  (leaf org-roam-ui
+	:straight t
+	:bind (("C-c n u" . org-roam-ui-mode))
+	:config
+	(setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t)
+	)
   )
+
+
 
 ;; easy-hugo just a posts manager and reviewer, `easy-hugo` to get menu
 ;; could not convert org files.
