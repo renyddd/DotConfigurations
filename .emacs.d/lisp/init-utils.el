@@ -40,6 +40,20 @@
 		 )
   )
 
+;; expand-region, https://github.com/magnars/expand-region.el
+;; expand-region word, sentence, block, whole buffer
+(leaf expand-region
+  :straight t
+  :bind (("C-=" . er/expand-region)
+		 )
+  )
+
+;; string-edit, https://github.com/magnars/string-edit.el
+;; edit the string with a pop up buffer without manually
+;; escape characters
+(leaf string-edit
+  :straight t
+  )
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
