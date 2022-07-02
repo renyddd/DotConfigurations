@@ -106,18 +106,28 @@
   :straight t)
 
 ;; lsp-mode, https://github.com/emacs-lsp/lsp-mode
-(setq lsp-keymap-prefix "C-c l")
 (leaf lsp-mode
   :straight t
   :hook
   ((go-mode-hook c-mode-hook c++-mode-hook) . lsp)
   :config
+  (setq lsp-keymap-prefix "C-c l")
   (lsp-register-client ; https://emacs-lsp.github.io/lsp-mode/page/remote/
-    (make-lsp-client :new-connection (lsp-tramp-connection "clang-14")
-                     :major-modes '(c-mode)
-                     :remote? t
-                     :server-id 'clang-14-remote))
-   ; clang: error: no input filesr
+   (make-lsp-client :new-connection (lsp-tramp-connection "clang-14")
+                    :major-modes '(c-mode)
+                    :remote? t
+                    :server-id 'clang-14-remote))
+  ;; clang: error: no input filesr
+
+  ;; solve, too many files open
+  (if (not (fboundp 'file-notify-rm-all-watches))
+	  (defun file-notify-rm-all-watches ()
+		"Remove all existing file notification watches from Emacs."
+		(interactive)
+		(maphash
+		 (lambda (key _value)
+		   (file-notify-rm-watch key))
+		 file-notify-descriptors)))
   )
 
 (leaf go-mode ;; TODO: try to move this into eglog config part
