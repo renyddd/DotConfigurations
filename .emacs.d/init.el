@@ -5,6 +5,10 @@
 ;; Emacs config by Erupmi :P
 ;; Special thanks to seagle0128, purcell, and doom-emacs
 
+;; You can 'straight-pull-all' to update everything.
+
+;;; Code:
+
 (setq debug-on-error t)
 
 ;; initialize straight, https://github.com/raxod502/straight.el#getting-started

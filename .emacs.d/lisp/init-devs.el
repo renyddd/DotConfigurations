@@ -99,19 +99,18 @@
 ;; 			  ((staticcheck . t)
 ;; 			   (matcher . "CaseSensitive"))))))
 
-;;; Program
-;; lsp-ui contains highlevel UI modules of lsp-mode works out
-;; of box
-(leaf lsp-ui
-  :straight t)
+;;; Program:
 
 ;; lsp-mode, https://github.com/emacs-lsp/lsp-mode
 (leaf lsp-mode
   :straight t
+  :init
+  ;; set prefix before lsp-mode loading
+  (setq lsp-keymap-prefix "M-l")
   :hook
+  (lsp-mode . lsp-enable-which-key-integration)
   ((go-mode-hook c-mode-hook c++-mode-hook) . lsp)
   :config
-  (setq lsp-keymap-prefix "C-c l")
   (lsp-register-client ; https://emacs-lsp.github.io/lsp-mode/page/remote/
    (make-lsp-client :new-connection (lsp-tramp-connection "clang-14")
                     :major-modes '(c-mode)
@@ -128,6 +127,11 @@
 		 (lambda (key _value)
 		   (file-notify-rm-watch key))
 		 file-notify-descriptors)))
+
+  ;; lsp-ui contains highlevel UI modules of lsp-mode works out
+  ;; of box
+  (leaf lsp-ui
+	:straight t)
   )
 
 (leaf go-mode ;; TODO: try to move this into eglog config part

@@ -12,5 +12,11 @@
 (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme" t)
 (setq scheme-program-name "/usr/local/bin/mit-scheme") ;;; This is the binary name of my scheme implementation
 
+;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
+(leaf c-mode
+  :config
+  ;; c-default-style, c-set-style
+  )
+
 (provide 'init-lang)
 ;;; init-lang.el ends here

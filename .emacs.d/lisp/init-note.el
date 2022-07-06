@@ -142,15 +142,15 @@
   :bind
   ("C-c d d" . define-word-at-point))
 
-;; ;; shengci capture
-;; (leaf shengci
-;;   :straight '(shengci
-;; 			  :type git
-;; 			  :host github
-;; 			  :repo "EvanMeek/shengci")
+;; eic, english in context
+;; (load "~/wwc/eic.el")
+;; (leaf eic
 ;;   :bind
-;;   ("C-c d c" . shengci-capture-word-and-save)
-;;   ("C-c d l" . shengci-show-recorded-word))
+;;   ("C-c d c" . eic/capture-word))
+
+(load "~/wwc/wwc.el")
+(require 'wwc)
+(global-set-key (kbd "C-c d c") 'wwc/capture-word)
 
 (provide 'init-note)
 ;;; init-note.el ends here
