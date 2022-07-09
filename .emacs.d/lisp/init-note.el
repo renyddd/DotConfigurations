@@ -13,8 +13,6 @@
 
 (leaf org
   :straight t
-  :bind (("C-c a" . org-agenda)
-		 )
   :config
   ;; https://orgmode.org/manual/Workflow-states.html#Workflow-states
   (progn
@@ -27,7 +25,7 @@
 	(setq org-todo-keywords
 		  ;; '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
 
-          '(
+		  '(
 			(sequence ; https://www.gtrun.org/custom/my-agenda.html#orge94abfc
 			 "☞ TODO(t!)"	; A task that needs doing & is ready to do
 			 "PROJ(p!)" ; An ongoing project that cannot be completed in one step
@@ -47,13 +45,18 @@
 			 )
 			)							; Task was completed
 		  )
-	
 
 	(setq org-log-done 'time
 		  org-closed-keep-when-no-todo t
      	  org-log-into-drawer t
 		  org-treat-insert-todo-heading-as-state-change t
-		  org-display-remote-inline-images 'download
+		  org-display-remote-inline-images 'download ; not work so far
+
+		  ;; it's better to see images in the output
+		  org-export-with-broken-links t	; adapt org-roam export
+		  org-image-actual-width (list 550) ; try to get the width from
+										; #+ATTR.* keyword
+										; #+ATTR_HTML: :width 300px
 		  )
   
 	;; some directories
@@ -63,6 +66,21 @@
 								 "~/tmp/org_first.org")
 		  org-default-notes-file (concat org-directory "~/notes.org")
 		  )
+
+	;; browse html with creating files in work directory
+	(defun org-html-export-to-browser ()
+	  (interactive)
+	  (let ((cur-window-state (current-window-configuration))
+			(org-exported-html-buffer (org-html-export-as-html))
+			(org-exported-file (make-temp-file "org-export"
+											   nil
+											   ".html")))
+		(set-buffer org-exported-html-buffer)
+		(write-file org-exported-file)
+		(kill-buffer org-exported-html-buffer)
+		(browse-url (concat "file://" org-exported-file))
+		(set-window-configuration cur-window-state)))
+
   
 	;; settings for ox-hugo
 	(with-eval-after-load 'ox
@@ -70,6 +88,8 @@
 	(setq org-hugo-base-dir "~/git_repositories/renyddd.github.io/"
 		  org-hugo-default-section-directory "posts")
 	)
+  :bind (("C-c a" . org-agenda)
+		 ("C-c h" . org-html-export-to-browser))
   )
 
 ;; org-roam
@@ -103,6 +123,22 @@
           org-roam-ui-follow t
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t)
+	)
+
+  ;; deft for quickly browsing, filtering of plain text notes
+  ;; got from
+  ;; https://lucidmanager.org/productivity/taking-notes-with-emacs-org-mode-and-org-roam/
+  (leaf deft
+	:straight t
+	:bind (("C-c n d" . deft))
+	:config
+	(setq deft-directory org-roam-directory
+          deft-recursive t
+          deft-strip-summary-regexp ":PROPERTIES:\n\\(.+\n\\)+:END:\n"
+          deft-use-filename-as-title t)
+	;; If no files match your search string, pressing RET will create
+	;; a new file using the string as the title.
+	;; C-o to open a file in another window.
 	)
   )
 
