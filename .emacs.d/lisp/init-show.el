@@ -1,3 +1,9 @@
+;;; init-show.el --- beter performance information
+;;; Commentary:
+;; Visualization
+
+;;; Code:
+
 (global-font-lock-mode 1)
 
 ;; disable the menu bar and the scroll bar
@@ -147,16 +153,6 @@ from https://blog.chmouel.com/2016/09/07/dealing-with-yaml-in-emacs/"
   :custom
   (which-key-idle-delay . 0.5)
   (which-key-add-column-padding . 0))
-
-;; better *help* buffer, https://github.com/Wilfred/helpful
-;; with source code, pretty doc, callers
-(leaf helpful
-  :straight t
-  :bind
-  (("C-h f" . helpful-callable)
-   ("C-h v" . helpful-variable)
-   ("C-h k" . helpful-key)
-   ("C-h p" . helpful-at-point)))
 
 ;; helm, https://github.com/emacs-helm/helm/wiki#helm-completion-vs-emacs-completion
 ;; helm completion is based on the completion window, `C-h m` display help
