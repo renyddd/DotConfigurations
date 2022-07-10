@@ -1,6 +1,6 @@
-;;; init-lang.el --- langurange related configurations
+;;; init-lang.el --- languange related configurations
 ;;; Commentary:
-;; Langurage configurations.
+;; Language configurations.
 
 ;;; Code:
 
@@ -44,6 +44,14 @@
 (leaf c-mode
   :config
   ;; c-default-style, c-set-style
+  )
+
+;; https://github.com/ppareit/graphviz-dot-mode
+(leaf graphviz-dot-mode
+  :straight t
+  :config
+  (setq graphviz-dot-indent-width 4)
+  ;; Dot Language: https://graphviz.org/doc/info/lang.html
   )
 
 (provide 'init-lang)
