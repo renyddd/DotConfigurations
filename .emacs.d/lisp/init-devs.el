@@ -221,5 +221,28 @@
   :config
   )
 
+;; lispy, LISP editing
+;; Interactive commands in lispy-mode are only active when:
+;; - the point is before an open paren: (, [ or {
+;; - the point is after a close paren
+;; - the region is active
+;;
+;; *lispy has short command bindings and doesn't need to to switch modes*
+;;
+;; Basic navigation by-list and by-region:
+;; h - moves left
+;; j - moves down
+;; k - moves up
+;; l - moves right
+;; f - steps inside the list
+;; b - moves back in history for all above commands
+;; e - evals
+;; C-1 - shows documentation in an overlay
+(leaf lispy
+  :straight t
+  :hook
+  (emacs-lisp-mode-hook . (lambda () (lispy-mode 1)))
+  )
+
 (provide 'init-devs)
 ;;; init-devs.el ends here
