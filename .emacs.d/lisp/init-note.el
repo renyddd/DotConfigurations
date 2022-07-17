@@ -87,6 +87,28 @@
 	  (require 'ox-hugo))
 	(setq org-hugo-base-dir "~/git_repositories/renyddd.github.io/"
 		  org-hugo-default-section-directory "posts")
+
+	;; https://github.com/rlister/org-present
+	;; start the minor mode with: M-x org-present
+	;; left / right for movement
+	;; C-c C-q for quit
+	(leaf org-present
+	  :straight t
+	  :config
+	  (progn
+		(add-hook 'org-present-mode-hook
+				  (lambda ()
+					(org-present-big)
+					(org-display-inline-images)
+					(org-present-hide-cursor)
+					(org-present-read-only)))
+		(add-hook 'org-present-mode-quit-hook
+				  (lambda ()
+					(org-present-small)
+					(org-remove-inline-images)
+					(org-present-show-cursor)
+					(org-present-read-write))))
+	  )
 	)
   :bind (("C-c a" . org-agenda)
 		 ("C-c h" . org-html-export-to-browser))
@@ -139,28 +161,6 @@
 	;; If no files match your search string, pressing RET will create
 	;; a new file using the string as the title.
 	;; C-o to open a file in another window.
-	)
-
-  ;; https://github.com/rlister/org-present
-  ;; start the minor mode with: M-x org-present
-  ;; left / right for movement
-  ;; C-c C-q for quit
-  (leaf org-present
-	:straight t
-	:config
-	(progn
-	  (add-hook 'org-present-mode-hook
-				(lambda ()
-                 (org-present-big)
-                 (org-display-inline-images)
-                 (org-present-hide-cursor)
-                 (org-present-read-only)))
-	  (add-hook 'org-present-mode-quit-hook
-               (lambda ()
-                 (org-present-small)
-                 (org-remove-inline-images)
-                 (org-present-show-cursor)
-                 (org-present-read-write))))
 	)
   )
 
