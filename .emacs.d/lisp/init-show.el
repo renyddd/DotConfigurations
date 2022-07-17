@@ -20,7 +20,7 @@
 (show-paren-mode 1)
 
 ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
-(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 150)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -163,6 +163,15 @@ from https://blog.chmouel.com/2016/09/07/dealing-with-yaml-in-emacs/"
   :straight t
   :bind
   ("M-x" . helm-M-x))
+
+(leaf "write-environment"
+  :config
+  (leaf writeroom-mode
+	:straight t)
+
+  (leaf olivetti
+	:straight t)
+  )
 
 (provide 'init-show)
 ;;; init-show.el ends here
