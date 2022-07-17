@@ -109,7 +109,7 @@
   (setq lsp-keymap-prefix "M-l")
   :hook
   (lsp-mode . lsp-enable-which-key-integration)
-  ((go-mode-hook c-mode-hook c++-mode-hook) . lsp)
+  ((go-mode-hook c-mode-hook c++-mode-hook python-mode-hook) . lsp)
   :config
   (lsp-register-client ; https://emacs-lsp.github.io/lsp-mode/page/remote/
    (make-lsp-client :new-connection (lsp-tramp-connection "clang-14")
