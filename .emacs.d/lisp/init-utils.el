@@ -55,8 +55,57 @@
   :straight t
   )
 
+;; jq-mode
 (leaf jq-mode
   :straight t)
+
+;; avy
+(leaf avy
+  :straight t
+  :bind
+  ("C-:" . avy-goto-char)	  ; input one char, jump to it with a tree
+  ("C-'" . avy-goto-char-2)	; input two consecutive chars, jump to the first one with a tree
+  ("C-\"" . avy-goto-char-timer) ; input a arbitrary amount of consecutive chars,
+  ;; jump to the first one with a tree
+  ("M-g f" . avy-goto-line)	; input zero chars, jump to a line start with a tree
+  )
+
+
+;; helm, https://github.com/emacs-helm/helm/wiki#helm-completion-vs-emacs-completion
+;; helm completion is based on the completion window, `C-h m` display help
+;; without qiting helm session.
+;; `C-x c` default help-command-prefix
+;; (leaf helm
+;;   :straight t
+;;   :bind
+;;   ("M-x" . helm-M-x))
+
+;; ivy, a generic completion frontend
+(leaf ivy
+  :straight t
+  :diminish t
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virutal-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-height 10)
+  (setq ivy-initial-inputs-alist nil)
+  )
+
+;; counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+(leaf counsel
+  :straight t
+  :bind
+  ("M-x" . counsel-M-x)
+  ("C-x C-f" . counsel-find-file)
+  )
+
+;; swiper, isearch with a overview
+(leaf swiper
+  :straight t
+  :bind
+  ("C-s" . swiper))
+
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
