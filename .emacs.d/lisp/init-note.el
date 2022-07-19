@@ -198,9 +198,16 @@
   :bind
   ("C-c d d" . define-word-at-point))
 
-(load "~/wwc/wwc.el")
-(require 'wwc)
-(global-set-key (kbd "C-c d c") 'wwc/capture-word)
+(leaf wwc
+  :config
+  (let ((wwc-file "~/wwc/wwc.el"))
+	(if (file-exists-p wwc-file)
+		(progn
+		  (load wwc-file)
+		  (require 'wwc)
+		  (global-set-key (kbd "C-c d c") 'wwc/capture-word)))
+	)
+  )
 
 (provide 'init-note)
 ;;; init-note.el ends here

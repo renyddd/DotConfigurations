@@ -24,9 +24,15 @@
   (leaf helpful
 	:straight t
 	:bind (("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k" . helpful-key)
-	 ("C-h p" . helpful-at-point))
+		   ("C-h v" . helpful-variable)
+		   ("C-h k" . helpful-key)
+		   ("C-h p" . helpful-at-point))
+	:config
+	(leaf elisp-demos
+	  :straight t
+	  :config
+	  (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
+	  )
 	)
 
   ;; intelligent code search for elisp
@@ -38,6 +44,8 @@
 		   ("C-c e v" . elisp-refs-variable)
 		   ("C-c e s" . elsip-refs-symbol))
 	)
+
+;;; M-x shortdoc-display-group
   )
 
 ;; https://www.gnu.org/software/emacs/manual/html_mono/ccmode.html
