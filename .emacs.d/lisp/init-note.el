@@ -21,7 +21,6 @@
 	(with-eval-after-load 'org
 	  (add-to-list 'org-modules 'org-habit t))
 
-
 	(setq org-todo-keywords
 		  ;; '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)"))
 
@@ -58,6 +57,16 @@
 										; #+ATTR.* keyword
 										; #+ATTR_HTML: :width 300px
 		  )
+
+	;; source code blocks
+	;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-C.html
+	;; https://qua.name/mrb/an-org-babel-based-emacs-configuration
+	(setq org-babel-load-languages
+		  '((C . t)
+			(python . t)
+			(shell . t)))
+	;; activate babel language
+	(org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages)
   
 	;; some directories
 	(setq org-directory "~/org"
@@ -108,8 +117,7 @@
 					(org-remove-inline-images)
 					(org-present-show-cursor)
 					(org-present-read-write))))
-	  )
-	)
+	  ))
   :bind (("C-c a" . org-agenda)
 		 ("C-c h" . org-html-export-to-browser))
   )

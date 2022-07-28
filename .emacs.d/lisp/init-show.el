@@ -190,9 +190,9 @@ from https://blog.chmouel.com/2016/09/07/dealing-with-yaml-in-emacs/"
   :straight t
   :if (display-graphic-p))
 
-(leaf emojify
-  :straight t
-  :hook (after-init-hook . global-emojify-mode))
+;; (leaf emojify
+;;   :straight t
+;;   :hook (after-init-hook . global-emojify-mode))
 
 (leaf chinese
   :config
