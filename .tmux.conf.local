@@ -384,6 +384,14 @@ bind 1 resize-pane -Z
 ## Source the conf file
 bind r source-file ~/.tmux.conf.local
 
+## Unbind 4-9 windows selection
+unbind 4
+unbind 5
+unbind 6
+unbind 7
+unbind 8
+unbind 9
+
 # -- tpm -----------------------------------------------------------------------
 
 # while I don't use tpm myself, many people requested official support so here
