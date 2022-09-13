@@ -377,6 +377,10 @@ bind -r Left previous-window
 ## Kill window, similar than emacs kill buffer
 bind k confirm kill-window
 
+## Zoom panes
+unbind z
+bind 1 resize-pane -Z
+
 ## Source the conf file
 bind r source-file ~/.tmux.conf.local
 
