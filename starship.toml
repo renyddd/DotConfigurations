@@ -1,0 +1,67 @@
+## https://starship.rs/config/
+# Use custom format
+# format = "$all"
+format = """
+[┌───────────────────>](bold green bg:green) $time
+$shell (bold green bg:green)$directory $character"""
+
+[shell]
+zsh_indicator = ""
+fish_indicator = ""
+bash_indicator = "$_"
+unknown_indicator = "mystery shell"
+format = "[$indicator]($style)"
+style = "cyan bold"
+disabled = false
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[✗](bold red) "
+
+[cmd_duration]
+min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
+format = " took [$duration]($style)"
+
+[directory]
+truncation_length = 5
+style = "bold cyan bg:green"
+format = "[$path]($style) "
+
+[time]
+time_format = "%m-%dT%T"
+format = "$time($style) "
+style = "bright-white"
+disabled = false
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[golang]
+symbol = "🐶 "
+
+[git_metrics]
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+disabled = false
+
+[git_status]
+conflicted = "🏳"
+ahead = "🏎💨"
+behind = "😰"
+diverged = "😵"
+up_to_date = "✓"
+untracked = "🤷‍"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+[kubernetes]
+# format = 'on [☸️  $context ](dimmed blue)'
+format = 'on [⎈  $context ](dimmed blue)'
+disabled = false
