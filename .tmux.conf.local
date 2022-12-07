@@ -489,6 +489,9 @@ set -g @plugin 'imomaliev/tmux-peacock'
 set -g @plugin 'laktak/extrakto'
 set -g @extrakto_popup_size 35%
 
+## theme: nord-tmux
+set -g @plugin "arcticicestudio/nord-tmux"
+
 
 # Other examples:
 # set -g @plugin 'github_username/plugin_name'
