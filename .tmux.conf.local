@@ -327,6 +327,8 @@ tmux_conf_copy_to_os_clipboard=false
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 
+set-option -g default-shell $SHELL
+
 # increase history size
 #set -g history-limit 10000
 

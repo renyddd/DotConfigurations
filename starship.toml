@@ -6,8 +6,8 @@ format = """
 $shell (bold green bg:green)$directory $character"""
 
 [shell]
-zsh_indicator = ""
-fish_indicator = ""
+zsh_indicator = "🧟"
+fish_indicator = "🦈"
 bash_indicator = "$_"
 unknown_indicator = "mystery shell"
 format = "[$indicator]($style)"
