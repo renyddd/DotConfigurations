@@ -161,10 +161,17 @@ Version 2019-11-05"
   :bind ("s-p". projectile-command-map)
   :config (projectile-mode +1))
 
+(defconst my/org-file-directory "~/Dropbox/org-roam")
+
+(use-package org
+  :ensure t
+  :custom
+  (org-agenda-files (list my/org-file-directory)))
+
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory (file-truename "~/Dropbox/org-roam"))
+  (org-roam-directory (file-truename my/org-file-directory))
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
@@ -185,7 +192,17 @@ Version 2019-11-05"
 
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+  (require 'org-roam-protocol)
+
+  (use-package deft
+    :after org
+    :bind
+    ("C-c n d" . deft)
+    :custom
+    (deft-recursive t)
+    (deft-use-filter-string-for-filename t)
+    (deft-default-extension "org")
+    (deft-directory org-roam-directory)))
 
 ;; treemacs
 
