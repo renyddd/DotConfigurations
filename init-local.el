@@ -166,9 +166,32 @@ Version 2019-11-05"
 	  ("TRICK" . (face-foreground 'warning))
 	  ("HACK" . (face-foreground 'warning)))))
 
+(use-package highlight-thing
+  :config
+  (setq highlight-thing-delay-seconds .3
+	highlight-thing-exclude-thing-under-point t)
+  (global-highlight-thing-mode))
+
+(use-package highlight-quoted
+  :config (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode))
+
+(use-package symbol-overlay
+  :config (with-eval-after-load 'lispy
+	    (define-key lispy-mode-map (kbd "M-i") nil)
+	    (global-set-key (kbd "M-i") 'symbol-overlay-put)
+	    (global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
+	    (global-set-key (kbd "M-p") 'symbol-overlay-jump-last)
+	    (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
+	    (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)))
+
 (use-package pangu-spacing
   :config (setq pangu-spacing-real-insert-separtor t)
   (global-pangu-spacing-mode 1))
+
+(use-package keycast
+  :config
+  (keycast-header-line-mode -1)
+  (keycast-log-mode -1))
 
 ;; * Tools
 ;; (use-package eldoc-box
