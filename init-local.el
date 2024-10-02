@@ -32,24 +32,33 @@
 (provide 'init-local)
 
 ;; * Editing
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq backup-by-copying t)
+(let ((enabled-lazycat-auto-save t))
+  (if enabled-lazycat-auto-save
+      (progn
+	(use-package auto-save
+	  :custom
+	  (auto-save-silent t)
+	  (auto-save-delete-trailing-whitespace t)
+	  :config (auto-save-enable)))
+    (progn
+      (setq backup-directory-alist `(("." . "~/.saves")))
+      (setq backup-by-copying t)
 
-;; from http://xahlee.info/emacs/emacs/emacs_auto_save.html
-(when (>= emacs-major-version 26)
-  ;; real auto save
-  (auto-save-visited-mode 1)
-  (setq auto-save-visited-interval 60))
+      ;; from http://xahlee.info/emacs/emacs/emacs_auto_save.html
+      (when (>= emacs-major-version 26)
+	;; real auto save
+	(auto-save-visited-mode 1)
+	(setq auto-save-visited-interval 60))
 
-(defun xah-save-all-unsaved ()
-  "Save all unsaved files. no ask.
+      (defun xah-save-all-unsaved ()
+	"Save all unsaved files. no ask.
 Version 2019-11-05"
-  (interactive)
-  (save-some-buffers t ))
+	(interactive)
+	(save-some-buffers t))
 
-(if (version< emacs-version "27.1")
-    (add-hook 'focus-out-hook 'xah-save-all-unsaved)
-  (setq after-focus-change-function 'xah-save-all-unsaved))
+      (if (version< emacs-version "27.1")
+	  (add-hook 'focus-out-hook 'xah-save-all-unsaved)
+	(setq after-focus-change-function 'xah-save-all-unsaved)))))
 
 (use-package vundo)
 
@@ -119,6 +128,11 @@ Version 2019-11-05"
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
+
+(use-package browse-kill-ring
+  :bind ("C-y" . browse-kill-ring)
+  :config (with-eval-after-load 'lispy
+	    (define-key lispy-mode-map (kbd "C-y") nil)))
 
 ;; * Appearances
 (setq require-final-newline t)
