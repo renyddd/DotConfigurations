@@ -74,7 +74,10 @@ Version 2019-11-05"
   (recentf-mode 1))
 
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g" . magit-status)
+  :custom
+  ;; https://github.com/magit/magit/issues/1953
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 
 ;; select window using shift and arrow keys, like
 ;; S-<right> runs the command windmove-right (found in
@@ -161,6 +164,9 @@ Version 2019-11-05"
   :bind ("s-p". projectile-command-map)
   :config (projectile-mode +1))
 
+(use-package avy
+  :config (global-set-key (kbd "C-;") 'avy-goto-char-timer))
+
 (defconst my/org-file-directory "~/Dropbox/org-roam")
 
 (use-package org
@@ -204,6 +210,9 @@ Version 2019-11-05"
     (deft-default-extension "org")
     (deft-directory org-roam-directory)))
 
+(use-package rg
+  :ensure-system-package rg)
+
 ;; treemacs
 
 (use-package which-key
@@ -219,8 +228,19 @@ Version 2019-11-05"
 
 (use-package yaml-mode)
 
-(use-package rg
-  :ensure-system-package rg)
+(use-package company
+  :config (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package helpful
+  :config
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
+  (global-set-key (kbd "C-h x") #'helpful-command)
+  (global-set-key (kbd "C-h p") #'helpful-at-point)
+
+  (use-package elisp-demos
+    :config (advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init-local.el ends here
