@@ -193,6 +193,9 @@ Version 2019-11-05"
   (keycast-header-line-mode -1)
   (keycast-log-mode -1))
 
+(use-package nyan-mode
+  :config (nyan-mode 1))
+
 ;; * Tools
 ;; (use-package eldoc-box
 ;;   :init (add-hook 'eldoc-mode-hook #'eldoc-box-hover-mode))
