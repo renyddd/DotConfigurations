@@ -35,6 +35,7 @@
 (let ((enabled-lazycat-auto-save t))
   (if enabled-lazycat-auto-save
       (progn
+	(package-vc-install "https://github.com/manateelazycat/auto-save.git")
 	(use-package auto-save
 	  :custom
 	  (auto-save-silent t)
@@ -212,7 +213,11 @@ Version 2019-11-05"
 (use-package org
   :ensure t
   :custom
-  (org-agenda-files (list my/org-file-directory)))
+  (org-agenda-files (list my/org-file-directory))
+
+  (progn
+    (package-vc-install "https://github.com/Fuco1/org-clock-budget.git")
+    (use-package org-clock-budget)))
 
 (use-package org-roam
   :ensure t
