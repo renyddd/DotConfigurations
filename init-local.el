@@ -35,7 +35,9 @@
 (let ((enabled-lazycat-auto-save t))
   (if enabled-lazycat-auto-save
       (progn
-	(package-vc-install "https://github.com/manateelazycat/auto-save.git")
+	(if (not (package-installed-p 'auto-save))
+	    (package-vc-install "https://github.com/manateelazycat/auto-save.git"))
+	;; manually update in ~/.emacs.d/elpa/auto-save
 	(use-package auto-save
 	  :custom
 	  (auto-save-silent t)
@@ -216,7 +218,8 @@ Version 2019-11-05"
   (org-agenda-files (list my/org-file-directory))
 
   (progn
-    (package-vc-install "https://github.com/Fuco1/org-clock-budget.git")
+    (if (not (package-installed-p 'org-clock-budget))
+	(package-vc-install "https://github.com/Fuco1/org-clock-budget.git"))
     (use-package org-clock-budget)))
 
 (use-package org-roam
