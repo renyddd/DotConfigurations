@@ -81,7 +81,7 @@ bindkey '^j' autosuggest-accept
 # then you got the autosuggest, 'ctrl + o' to enter.
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.zshrc_work_related
+[[ -f $HOME/.zshrc_work_related ]] && source $HOME/.zshrc_work_related
 
 # User configuration
 
@@ -146,3 +146,7 @@ export PATH
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #     exec tmux
 # fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
