@@ -396,6 +396,9 @@ bind p if-shell -F '#{==:#{session_name},scratch}' {
   display-popup -s -E "tmux new-session -A -s scratch"
 }
 
+if-shell 'tmux has-session -t scratch 2>/dev/null || tmux new-session -d -s scratch \; set-option -t scratch status off' ''
+
+
 ## Unbind 4-9 windows selection
 unbind 4
 unbind 5
@@ -480,7 +483,7 @@ set-environment -g PATH "/usr/local/bin:/bin:/usr/bin"
 
 set -g @plugin 'tmux-plugins/tpm'
 
-## 
+##
 ## set -g @plugin 'tmux-plugins/tmux-sensible'
 ### tmux messages are displayed for 4 seconds
 ## set -g display-time 4000
