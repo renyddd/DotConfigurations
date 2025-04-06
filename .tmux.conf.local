@@ -386,6 +386,16 @@ bind 1 resize-pane -Z
 ## Source the conf file
 bind r source-file ~/.tmux.conf.local
 
+## Popup
+set -g popup-border-style fg=cyan,bg=default
+
+unbind p
+bind p if-shell -F '#{==:#{session_name},scratch}' {
+  detach-client
+} {
+  display-popup -s -E "tmux new-session -A -s scratch"
+}
+
 ## Unbind 4-9 windows selection
 unbind 4
 unbind 5
