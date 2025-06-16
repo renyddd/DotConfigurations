@@ -1,0 +1,44 @@
+[general]
+import = [
+  # uncomment the flavour you want below:
+  #"~/.config/alacritty/catppuccin/catppuccin-latte.toml"
+  # "~/.config/alacritty/catppuccin/catppuccin-frappe.toml"
+  # "~/.config/alacritty/catppuccin/catppuccin-macchiato.
+  "~/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+]
+
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 12
+
+[font.offset]
+x = 0
+y = 1
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[scrolling]
+history = 5000
+
+[window]
+
+option_as_alt = "Both"
+
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.9
+title = "Alacritty"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 6
+y = 6
+
