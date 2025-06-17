@@ -18,6 +18,13 @@ Never try *stow* again, use this easier script:
   git clone https://github.com/gpakosz/.tmux.git
   ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
   cp ~/dotConfigurations/.tmux.conf.local ~/.tmux.conf.local
+
+  # fish
+  cd
+  fish
+  curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+  omf install https://github.com/jhillyerd/plugin-git
+  omf install https://github.com/jorgebucaran/autopair.fish
 #+end_src
 
 
