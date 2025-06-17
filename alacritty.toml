@@ -1,13 +1,14 @@
 [general]
 import = [
-  # uncomment the flavour you want below:
-  #"~/.config/alacritty/catppuccin/catppuccin-latte.toml"
-  # "~/.config/alacritty/catppuccin/catppuccin-frappe.toml"
-  # "~/.config/alacritty/catppuccin/catppuccin-macchiato.
-  "~/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+  "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
 live_config_reload = true
+
+[[keyboard.bindings]]
+key = "Slash"
+mods = "Control"
+chars = "\u001f"
 
 [env]
 TERM = "xterm-256color"
@@ -41,4 +42,3 @@ instance = "Alacritty"
 [window.padding]
 x = 6
 y = 6
-

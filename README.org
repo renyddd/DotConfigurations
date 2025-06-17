@@ -2,6 +2,26 @@
 #+author: renyddd
 #+date: <2022-05-04 Wed>
 * Overview
+
+Never try *stow* again, use this easier script:
+
+#+begin_src bash
+  cd
+  mkdir -p .config/{fish,alacritty,tmux}
+
+  # Alacritty
+  curl -LO --output-dir ~/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
+  ln -s ~/dotConfigurations/alacritty.toml .config/alacritty/
+
+  # tmux
+  cd
+  git clone https://github.com/gpakosz/.tmux.git
+  ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
+  cp ~/dotConfigurations/.tmux.conf.local ~/.tmux.conf.local
+#+end_src
+
+
+
 ** Emacs configurations
 #+attr_org: :width 600px
 [[./emacs-screenshot.png]]
@@ -14,7 +34,7 @@
 
 First config gpakosz repo:
 
-#+begin_src zsh
+#+begin_src bash
 git clone https://github.com/gpakosz/.tmux.git /path/to/oh-my-tmux
 ln -s -f /path/to/oh-my-tmux/.tmux.conf ~/.tmux.conf
 cp /path/to/DotConfigurations/.tmux.conf.local ~/.tmux.conf.local
