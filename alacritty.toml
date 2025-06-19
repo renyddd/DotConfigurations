@@ -1,14 +1,11 @@
-[general]
-import = [
-  "~/.config/alacritty/catppuccin-mocha.toml"
-]
+# https://alacritty.org/config-alacritty.html
+[colors]
+draw_bold_text_with_bright_colors = true
 
-live_config_reload = true
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 600
 
-[[keyboard.bindings]]
-key = "Slash"
-mods = "Control"
-chars = "\u001f"
 
 [env]
 TERM = "xterm-256color"
@@ -20,17 +17,30 @@ size = 12
 x = 0
 y = 1
 
-[colors]
-draw_bold_text_with_bright_colors = true
+[general]
+import = [
+  "~/.config/alacritty/catppuccin-mocha.toml"
+]
+live_config_reload = true
+
+[[keyboard.bindings]]
+key = "Slash"
+mods = "Control"
+chars = "\u001f"
+
+[mouse]
+hide_when_typing = true
+
 
 [scrolling]
 history = 5000
 
+[terminal]
+shell = "/opt/homebrew/bin/fish"
+
 [window]
-
 option_as_alt = "Both"
-
-decorations = "buttonless"
+decorations = "Transparent"
 dynamic_padding = false
 opacity = 0.9
 title = "Alacritty"
@@ -40,5 +50,5 @@ general = "Alacritty"
 instance = "Alacritty"
 
 [window.padding]
-x = 6
-y = 6
+x = 10
+y = 20
