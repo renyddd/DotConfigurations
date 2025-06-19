@@ -11,13 +11,14 @@ Never try *stow* again, use this easier script:
 
   # Alacritty
   curl -LO --output-dir ~/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-mocha.toml
-  ln -s ~/dotConfigurations/alacritty.toml .config/alacritty/
+  rm ~/.config/alacritty/alacritty.toml
+  ln -s ~/git-repos/DotConfigurations/alacritty.toml ~/.config/alacritty/alacritty.toml
 
   # tmux
   cd
-  git clone https://github.com/gpakosz/.tmux.git
-  ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
-  cp ~/dotConfigurations/.tmux.conf.local ~/.tmux.conf.local
+  git clone https://github.com/gpakosz/.tmux.git ~/git-repos/.tmux
+  ln -s -f ~/git-repos/.tmux/.tmux.conf ~/.tmux.conf
+  cp ~/git-repos/DotConfigurations/.tmux.conf.local ~/.tmux.conf.local
 
   # fish
   cd
@@ -39,14 +40,6 @@ Never try *stow* again, use this easier script:
 #+attr_org: :width 600px
 [[./iTerm2-screenshot.png]]
 
-First config gpakosz repo:
-
-#+begin_src bash
-git clone https://github.com/gpakosz/.tmux.git /path/to/oh-my-tmux
-ln -s -f /path/to/oh-my-tmux/.tmux.conf ~/.tmux.conf
-cp /path/to/DotConfigurations/.tmux.conf.local ~/.tmux.conf.local
-#+end_src
-
-Then proceed to customize your `~/.tmux.conf.local` copy.
+First config gpakosz repo, then proceed to customize your `~/.tmux.conf.local` copy.
 
 
